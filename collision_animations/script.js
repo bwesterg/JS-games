@@ -12,15 +12,18 @@ class Explosion {
         this.spriteHeight = 179;
         this.width = this.spriteWidth * 0.7;
         this.height = this.spriteHeight * 0.7;
-        this.x = x - this.width/2;
-        this.y = y - this.height/2;
+        this.x = x;
+        this.y = y;
         this.image = new Image();
         this.image.src = 'boom.png';
         this.frame = 0;
         this.timer = 0;
         this.angle = Math.random() * 6.2;
+        this.sound = new Audio();
+        this.sound.src = 'cloud_sound.wav';
     }
     update(){
+        if (this.frame === 0) this.sound.play();
         this.timer++;
         if(this.timer % 10 === 0){
             this.frame++;
@@ -43,9 +46,9 @@ class Explosion {
             // sh, 
             this.spriteHeight,
             // dx, 
-            0,
+            0 - this.width/2,
             // dy, 
-            0,
+            0 - this.width/2,
             // dw, 
             this.width,
             // dh
@@ -59,9 +62,9 @@ window.addEventListener('click', function(e){
     createAnimation(e);
 });
 
-window.addEventListener('mousemove', function(e){
-    createAnimation(e);
-});
+// window.addEventListener('mousemove', function(e){
+//     createAnimation(e);
+// });
 
 function createAnimation(e){
     let positionX = e.x - canvasPosition.left;
